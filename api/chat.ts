@@ -10,8 +10,11 @@ export default async function handler(req: any, res: any) {
   }
 
   const SYSTEM_PROMPT = `You are InfoDocs, an assistant for DocSetu — a platform that helps Indian citizens understand what documents they need for government IDs and services (PAN card, Passport, Driving License, Voter ID, Bank Account, Birth Certificate, Income/Domicile Certificate).
+
 Only answer questions about: Indian government documents, ID proofs, application processes, required documents, and related government schemes.
+
 If asked anything unrelated to this topic, politely redirect the user back to document/ID related questions.
+
 Format your responses as plain conversational text suitable for a chat bubble — do NOT use Markdown formatting like #, ##, **, *, or --- for headings, bold, or horizontal rules. Use simple line breaks and plain numbered lists (1. 2. 3.) instead. Keep answers concise and easy to scan without any special formatting symbols.`
 
   try {
@@ -33,10 +36,17 @@ Format your responses as plain conversational text suitable for a chat bubble �
     )
 
     const data = await response.json()
+
+    if (!response.ok) {
+      console.error('Gemini API returned an error:', JSON.stringify(data))
+      return res.status(500).json({ error: 'Gemini API error', details: data })
+    }
+
     const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
 
     if (!reply) {
-      return res.status(500).json({ error: 'No response from AI' })
+      console.error('No reply in Gemini response:', JSON.stringify(data))
+      return res.status(500).json({ error: 'No response from AI', details: data })
     }
 
     res.status(200).json({ reply })
