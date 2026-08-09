@@ -31,7 +31,7 @@ export function ChatAgent() {
     setLoading(true)
 
     try {
-      const res = await fetch('http://localhost:3001/api/chat', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -71,7 +71,7 @@ export function ChatAgent() {
           Your guide to Indian government documents and schemes.
         </p>
 
-        <div className="mt-8 flex h-[600px] flex-col rounded-2xl border border-slate-900/10 bg-white/60 backdrop-blur-lg dark:border-white/10 dark:bg-white/5">
+        <div className="mt-8 flex h-[535px] flex-col rounded-2xl border border-slate-900/10 bg-white/60 backdrop-blur-lg dark:border-white/10 dark:bg-white/5">
           <div className="flex-1 space-y-4 overflow-y-auto p-5">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
