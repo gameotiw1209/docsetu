@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { SendIcon, SparklesIcon } from 'lucide-react'
+import ReactMarkdown, { type Components } from 'react-markdown'
+
 
 type Message = {
   role: 'user' | 'model'
@@ -69,7 +71,7 @@ export function ChatAgent() {
           Your guide to Indian government documents and schemes.
         </p>
 
-        <div className="mt-8 flex h-[420px] flex-col rounded-2xl border border-slate-900/10 bg-white/60 backdrop-blur-lg dark:border-white/10 dark:bg-white/5">
+        <div className="mt-8 flex h-[600px] flex-col rounded-2xl border border-slate-900/10 bg-white/60 backdrop-blur-lg dark:border-white/10 dark:bg-white/5">
           <div className="flex-1 space-y-4 overflow-y-auto p-5">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -86,7 +88,21 @@ export function ChatAgent() {
                       IndDocs
                     </span>
                   )}
-                  {msg.text}
+                  <ReactMarkdown
+                    components={{
+                      p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                      strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                      ul: ({ children }) => <ul className="list-disc pl-4 space-y-1 mb-2 last:mb-0">{children}</ul>,
+                      ol: ({ children }) => <ol className="list-decimal pl-4 space-y-1 mb-2 last:mb-0">{children}</ol>,
+                      li: ({ children }) => <li>{children}</li>,
+                      h1: ({ children }) => <p className="font-semibold mb-1">{children}</p>,
+                      h2: ({ children }) => <p className="font-semibold mb-1">{children}</p>,
+                      h3: ({ children }) => <p className="font-semibold mb-1">{children}</p>,
+                      hr: () => null,
+                    }}
+                  >
+                    {msg.text}
+                  </ReactMarkdown>
                 </div>
               </div>
             ))}
