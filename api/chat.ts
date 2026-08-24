@@ -1,11 +1,9 @@
+import { GoogleGenAI } from "@google/genai"
+
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
-
-  const { message, history = [] } = req.body
-  console.log('KEY DEBUG:', process.env.GEMINI_API_KEY ? `length=${process.env.GEMINI_API_KEY.length}, starts=${process.env.GEMINI_API_KEY.slice(0, 6)}, ends=${process.env.GEMINI_API_KEY.slice(-4)}` : 'KEY IS UNDEFINED')
-
   if (!message) {
     return res.status(400).json({ error: 'Message is required' })
   }
