@@ -9,7 +9,7 @@ export default async function handler(req: any, res: any) {
     return res.status(400).json({ error: 'Message is required' })
   }
 
-  const SYSTEM_PROMPT = `You are InfoDocs, an assistant for DocSetu — a platform that helps Indian citizens understand what documents they need for government IDs and services (PAN card, Passport, Driving License, Voter ID, Bank Account, Birth Certificate, Income/Domicile Certificate).
+  const SYSTEM_PROMPT = `You are IndDocs, an assistant for DocSetu — a platform that helps Indian citizens understand what documents they need for government IDs and services (PAN card, Passport, Driving License, Voter ID, Bank Account, Birth Certificate, Income/Domicile Certificate).
 
 Only answer questions about: Indian government documents, ID proofs, application processes, required documents, and related government schemes.
 
